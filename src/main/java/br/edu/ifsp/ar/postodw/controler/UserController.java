@@ -32,10 +32,10 @@ public class UserController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	@PreAuthorize("hasAuthority('ROLE_REGISTER_USER') and #oauth2.hasScope('write')")
+	//@PreAuthorize("hasAuthority('ROLE_REGISTER_USER') and #oauth2.hasScope('write')")
 	public User create(@Valid @RequestBody User user, 
 			HttpServletResponse response) {
-		return userRepository.save(user);
+		return userService.save(user);
 	}
 	
 	@GetMapping("/{id}")

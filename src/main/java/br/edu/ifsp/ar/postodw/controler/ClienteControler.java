@@ -7,6 +7,7 @@ import br.edu.ifsp.ar.postodw.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -42,4 +43,11 @@ public class ClienteControler {
     public void delete(@PathVariable Long id){
         clienteService.deleteById(id);
     }
+    
+    @PutMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_REGISTER_ACTIVITY') and #oauth2.hasScope('write')")
+	public ResponseEntity<Cliente> update(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
+    	Cliente clienteSaved = clienteService.update(id, cliente);
+		return ResponseEntity.ok(clienteSaved);
+	}
 }

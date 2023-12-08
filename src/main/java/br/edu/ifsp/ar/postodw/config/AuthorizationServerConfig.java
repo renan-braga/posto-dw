@@ -1,5 +1,7 @@
 package br.edu.ifsp.ar.postodw.config;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,14 +11,17 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import br.edu.ifsp.ar.postodw.config.token.CustomTokenEnhancer;
+
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig extends 
-	AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
@@ -31,18 +36,18 @@ public class AuthorizationServerConfig extends
 			.secret("$2a$10$f.yKGdqWDD2pSbVHxzXrh.3umI6pPRQ/D30yIMIrT4aHaZO.xBmTK")
 			.scopes("read", "write")
 			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(1800)
+			.accessTokenValiditySeconds(30)
 			.refreshTokenValiditySeconds(3600 * 24)
 		.and()
 			.withClient("mobile")
 			.secret("$2a$10$WrK54bx3KDc60I5XwVdW..ltgfz7s1l/uHEMtu9z0K9ujnS4ljfLa") // mobile
 			.scopes("read")
 			.authorizedGrantTypes("password", "refresh_token")
-			.accessTokenValiditySeconds(1800)
+			.accessTokenValiditySeconds(30)
 			.refreshTokenValiditySeconds(3600 * 24);
 	}
 	
-	@Override
+	/*@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		endpoints
 			.tokenStore(tokenStore())
@@ -50,10 +55,30 @@ public class AuthorizationServerConfig extends
 			.reuseRefreshTokens(false)
 			.userDetailsService(userDetailsService)
 			.authenticationManager(authenticationManager);
+	}*/
+	
+	@Override
+	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+		TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer(), accessTokenConverter()));
+		
+		endpoints
+			.tokenStore(tokenStore())
+			.tokenEnhancer(tokenEnhancerChain) // aqui!
+			.reuseRefreshTokens(false)
+			.userDetailsService(userDetailsService)
+			.authenticationManager(authenticationManager);
+	}
+	
+	@Bean
+	public TokenEnhancer tokenEnhancer() {
+	    return new CustomTokenEnhancer();
 	}
 
+	
+	
 	@Bean
-	public JwtAccessTokenConverter AccessTokenConverter() {
+	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter =
 				new JwtAccessTokenConverter();
 		accessTokenConverter.setSigningKey("ifsp@arq");
@@ -62,7 +87,7 @@ public class AuthorizationServerConfig extends
 
 	@Bean
 	public TokenStore tokenStore() {
-		return new JwtTokenStore(AccessTokenConverter());
+		return new JwtTokenStore(accessTokenConverter());
 	}
 	
 }

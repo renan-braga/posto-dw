@@ -21,14 +21,21 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Override
+	/*@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		Optional<User> userOptional = userRepository.findByEmail(email);
 		User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
 		return new org.springframework.security.core.userdetails.User
 				(email, user.getPassword(), getPermissions(user));
+	}*/
+	
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		Optional<User> userOptional = userRepository.findByEmail(email);
+		User user = userOptional.orElseThrow(() -> new UsernameNotFoundException("Usuário e/ou senha incorretos"));
+		return new SystemUser(user, getPermissions(user));
 	}
-
+	
 	private Collection<? extends GrantedAuthority> getPermissions(User user) {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 		user.getPermissions().forEach(p -> 

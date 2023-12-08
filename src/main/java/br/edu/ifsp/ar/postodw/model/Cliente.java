@@ -12,8 +12,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cliente")
-@Getter
-@Setter
 @NoArgsConstructor
 public class Cliente {
 
@@ -25,4 +23,30 @@ public class Cliente {
 
     @Pattern(regexp = "\\d{11}|\\d{14}")
     private String documento;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+    
+    
 }
