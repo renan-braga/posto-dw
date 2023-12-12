@@ -25,18 +25,15 @@ public class Bomba {
     private Combustivel combustivel;
 
     @NotNull
-    @DecimalMin(value = "0,0")
     @Digits(integer = 10, fraction = 2)
     private BigDecimal preco;
 
     @NotNull
-    @DecimalMin(value = "0,0")
     @Digits(integer = 10, fraction = 2)
     @Column(name = "quantidade_atual")
     private BigDecimal quantidadeAtual;
 
     @NotNull
-    @DecimalMin(value = "0,0")
     @Digits(integer = 10, fraction = 2)
     private BigDecimal capacidade;
 }
