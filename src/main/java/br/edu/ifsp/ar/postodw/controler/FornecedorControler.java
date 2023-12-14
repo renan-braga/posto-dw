@@ -39,6 +39,9 @@ public class FornecedorControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        fornecedorService.deleteById(id);
+        fornecedorService.findById(id).map(fornecedor -> {
+            fornecedor.setAtivo(false);
+            return fornecedorService.update(id, fornecedor);
+        });
     }
 }

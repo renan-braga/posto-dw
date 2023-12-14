@@ -17,7 +17,7 @@ public class FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
 
     public List<Funcionario> list(){
-        return funcionarioRepository.findAll();
+        return funcionarioRepository.findByAtivoTrue();
     }
     public Optional<Funcionario> findById(Long id){return funcionarioRepository.findById(id);}
     public Funcionario save(Funcionario funcionario){return funcionarioRepository.save(funcionario);}

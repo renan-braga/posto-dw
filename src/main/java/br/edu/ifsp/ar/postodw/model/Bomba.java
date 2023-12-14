@@ -38,4 +38,5 @@ public class Bomba {
     @NotNull
     @Digits(integer = 10, fraction = 2)
     private BigDecimal capacidade;
-}
+
+    private Boolean ativo = true;}

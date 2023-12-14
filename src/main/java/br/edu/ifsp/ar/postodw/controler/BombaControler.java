@@ -42,9 +42,11 @@ public class BombaControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        bombaService.deleteById(id);
+        bombaService.findById(id).map(bomba -> {
+            bomba.setAtivo(false);
+            return bombaService.update(id, bomba);
+        });
     }
-
     @PutMapping("/recarregar/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Bomba recarregar(

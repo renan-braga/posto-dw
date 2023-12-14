@@ -42,7 +42,10 @@ public class FuncionarioControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        funcionarioService.deleteById(id);
+        funcionarioService.findById(id).map(funcionario -> {
+            funcionario.setAtivo(false);
+            return funcionarioService.update(id, funcionario);
+        });
     }
 
     @PutMapping("/{id}")

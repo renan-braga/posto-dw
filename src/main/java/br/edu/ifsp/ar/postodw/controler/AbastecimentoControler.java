@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/abastecimento")
@@ -38,7 +39,10 @@ public class AbastecimentoControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        abastecimentoService.deleteById(id);
+        abastecimentoService.findById(id).map(abastecimento -> {
+            abastecimento.setAtivo(false);
+            return abastecimentoService.update(id, abastecimento);
+        });
     }
 
 }

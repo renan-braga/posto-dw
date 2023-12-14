@@ -40,7 +40,10 @@ public class OrdemCompraControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        ordermCompraService.deleteById(id);
+        ordermCompraService.findById(id).map(ordemCompra -> {
+            ordemCompra.setAtivo(false);
+            return ordermCompraService.update(id, ordemCompra);
+        });
     }
 
 

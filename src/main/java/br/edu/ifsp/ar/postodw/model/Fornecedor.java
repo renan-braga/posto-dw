@@ -26,4 +26,5 @@ public class Fornecedor {
 
     @Pattern(regexp = "\\d{14}", message = "O CNPJ deve ter 14 dígitos")
     private String cnpj;
-}
+
+    private Boolean ativo = true;}
