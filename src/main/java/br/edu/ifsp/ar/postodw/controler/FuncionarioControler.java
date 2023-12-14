@@ -7,6 +7,7 @@ import br.edu.ifsp.ar.postodw.service.FuncionarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,5 +45,10 @@ public class FuncionarioControler {
         funcionarioService.deleteById(id);
     }
 
-
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_GERENCIA') and #oauth2.hasScope('write')")
+    public ResponseEntity<Funcionario> update(@PathVariable Long id, @Valid @RequestBody Funcionario funcionario) {
+        Funcionario funcionarioSaved = funcionarioService.update(id, funcionario);
+        return ResponseEntity.ok(funcionarioSaved);
+    }
 }
