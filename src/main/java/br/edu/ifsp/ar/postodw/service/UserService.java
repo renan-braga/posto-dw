@@ -35,10 +35,8 @@ public class UserService {
 	public List<Permission> addCommonUserPermissions(){
 		List<Permission> permissions = new ArrayList<>();
 		permissions.add(permissionRepository.findById(1L).get());
+		permissions.add(permissionRepository.findById(2L).get());
 		permissions.add(permissionRepository.findById(3L).get());
-		permissions.add(permissionRepository.findById(4L).get());
-		permissions.add(permissionRepository.findById(5L).get());
-		permissions.add(permissionRepository.findById(6L).get());
 		return permissions;
 	}
 	
