@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vendaconveniencia")
+@RequestMapping("/venda-conveniencia")
 public class VendaConvenienciaControler {
 
     @Autowired
@@ -44,5 +44,11 @@ public class VendaConvenienciaControler {
             vendaConveniencia.setAtivo(false);
             return vendaConvenienciaService.update(id, vendaConveniencia);
         });
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public VendaConveniencia update(@PathVariable Long id, @Valid @RequestBody VendaConveniencia vendaConveniencia){
+        return vendaConvenienciaService.update(id, vendaConveniencia);
     }
 }

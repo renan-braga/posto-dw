@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ordemcompra")
+@RequestMapping("/ordem-compra")
 public class OrdemCompraControler {
 
     @Autowired
@@ -46,5 +46,10 @@ public class OrdemCompraControler {
         });
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public OrdemCompra update(@PathVariable Long id, @Valid @RequestBody OrdemCompra ordemCompra){
+        return ordermCompraService.update(id, ordemCompra);
+    }
 
 }

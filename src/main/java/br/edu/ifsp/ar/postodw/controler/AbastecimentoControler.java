@@ -36,6 +36,12 @@ public class AbastecimentoControler {
         return abastecimentoService.save(abastecimento);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Abastecimento update(@PathVariable Long id, @Valid @RequestBody Abastecimento abastecimento){
+        return abastecimentoService.update(id, abastecimento);
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){

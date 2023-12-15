@@ -44,4 +44,10 @@ public class FornecedorControler {
             return fornecedorService.update(id, fornecedor);
         });
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Fornecedor update(@PathVariable Long id, @Valid @RequestBody Fornecedor fornecedor){
+        return fornecedorService.update(id, fornecedor);
+    }
 }

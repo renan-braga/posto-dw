@@ -26,7 +26,6 @@ public class VendaConveniencia {
 
     @NotNull
     @Digits(integer = 10, fraction = 2)
-    @DecimalMin(value = "0,0")
     private BigDecimal valorTotal;
 
     @ManyToOne
