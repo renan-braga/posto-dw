@@ -22,4 +22,5 @@ public class OrdermCompraService {
     public Optional<OrdemCompra> findById(Long id){return ordemCompraRepository.findById(id);}
     public OrdemCompra save(OrdemCompra ordemCompra){return ordemCompraRepository.save(ordemCompra);}
     public void deleteById(Long id){ordemCompraRepository.deleteById(id);}
+
 }

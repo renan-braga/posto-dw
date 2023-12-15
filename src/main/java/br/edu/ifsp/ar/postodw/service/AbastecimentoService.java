@@ -5,6 +5,7 @@ import br.edu.ifsp.ar.postodw.repository.AbastecimentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,11 +14,24 @@ public class AbastecimentoService {
 
     @Autowired
     private AbastecimentoRepository abastecimentoRepository;
+    @Autowired
+    private BombaService bombaService;
 
     public List<Abastecimento> list(){
         return abastecimentoRepository.findAll();
     }
     public Optional<Abastecimento> findById(Long id){return abastecimentoRepository.findById(id);}
-    public Abastecimento save(Abastecimento abastecimento){return abastecimentoRepository.save(abastecimento);}
+    public Abastecimento save(Abastecimento abastecimento){
+        BigDecimal quantidadeAtualBomba = abastecimento.getBomba().getQuantidadeAtual();
+        BigDecimal quantidadeAbastecida = abastecimento.getQuantidade();
+        if(quantidadeAbastecida.compareTo(quantidadeAtualBomba) > 0) {
+            throw new RuntimeException("Quantidade abastecida maior que a quantidade atual da bomba");
+        } else {
+            BigDecimal novaQuantidade = quantidadeAtualBomba.subtract(quantidadeAbastecida);
+            abastecimento.getBomba().setQuantidadeAtual(novaQuantidade);
+            bombaService.update(abastecimento.getBomba().getId(), abastecimento.getBomba());
+        }
+        return abastecimentoRepository.save(abastecimento);
+    }
     public void deleteById(Long id){abastecimentoRepository.deleteById(id);}
 }

@@ -2,6 +2,7 @@ CREATE TABLE cliente (
                          id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          nome VARCHAR(255),
                          documento VARCHAR(14),
+                         ativo BOOLEAN NOT NULL DEFAULT TRUE,
                          CONSTRAINT check_documento_length CHECK (CHAR_LENGTH(documento) IN (11, 14))
 
 );

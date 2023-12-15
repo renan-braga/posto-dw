@@ -1,5 +1,6 @@
 package br.edu.ifsp.ar.postodw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Size;
 @Table(name = "fornecedor")
 @Getter @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class Fornecedor {
 
     @Id

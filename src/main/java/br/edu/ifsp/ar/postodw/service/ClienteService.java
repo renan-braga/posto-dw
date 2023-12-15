@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ClienteService {
@@ -18,9 +19,7 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public List<Cliente> list(){
-        return clienteRepository.findAll();
-    }
+    public List<Cliente> list(){ return clienteRepository.findByAtivoTrue();}
     public Optional<Cliente> findById(Long id){return clienteRepository.findById(id);}
     public Cliente save(Cliente cliente){return clienteRepository.save(cliente);}
     public void deleteById(Long id){clienteRepository.deleteById(id);}

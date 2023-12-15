@@ -1,5 +1,6 @@
 package br.edu.ifsp.ar.postodw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Date;
 @Table(name = "ordem_compra")
 @Getter @Setter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OrdemCompra {
 
     @Id

@@ -1,5 +1,6 @@
 package br.edu.ifsp.ar.postodw.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "cliente")
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Cliente {
 
     @Id
@@ -23,6 +25,8 @@ public class Cliente {
 
     @Pattern(regexp = "\\d{11}|\\d{14}")
     private String documento;
+
+	private Boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -47,6 +51,13 @@ public class Cliente {
 	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
-    
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
     
 }

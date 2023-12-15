@@ -2,6 +2,7 @@ package br.edu.ifsp.ar.postodw.controler;
 
 import br.edu.ifsp.ar.postodw.model.Abastecimento;
 import br.edu.ifsp.ar.postodw.model.Bomba;
+import br.edu.ifsp.ar.postodw.model.OrdemCompra;
 import br.edu.ifsp.ar.postodw.service.AbastecimentoService;
 import br.edu.ifsp.ar.postodw.service.BombaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,14 @@ public class BombaControler {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         bombaService.deleteById(id);
+    }
+
+    @PutMapping("/recarregar/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Bomba recarregar(
+            @PathVariable Long bombaId,
+            @Valid @RequestBody Long ordemCompraId,
+            @Valid @RequestBody int quantidadeLitros) {
+        return bombaService.recarregar(bombaId, ordemCompraId, quantidadeLitros);
     }
 }

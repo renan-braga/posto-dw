@@ -1,8 +1,6 @@
 package br.edu.ifsp.ar.postodw.controler;
 
-import br.edu.ifsp.ar.postodw.model.Bomba;
 import br.edu.ifsp.ar.postodw.model.Cliente;
-import br.edu.ifsp.ar.postodw.service.BombaService;
 import br.edu.ifsp.ar.postodw.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,16 +36,22 @@ public class ClienteControler {
         return clienteService.save(cliente);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        clienteService.deleteById(id);
+        Cliente updatedCliente = clienteService.findClienteById(id);
+        updatedCliente.setAtivo(true);
+        clienteService.update(id, updatedCliente);
     }
     
     @PutMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_REGISTER_ACTIVITY') and #oauth2.hasScope('write')")
+	@PreAuthorize("hasAuthority('ROLE_GERENCIA') and #oauth2.hasScope('write')")
 	public ResponseEntity<Cliente> update(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
     	Cliente clienteSaved = clienteService.update(id, cliente);
 		return ResponseEntity.ok(clienteSaved);
 	}
+
+
+
+
 }
