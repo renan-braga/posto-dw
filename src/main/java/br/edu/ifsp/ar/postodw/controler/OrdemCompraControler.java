@@ -37,7 +37,7 @@ public class OrdemCompraControler {
         return ordermCompraService.save(ordemCompra);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         ordermCompraService.deleteById(id);

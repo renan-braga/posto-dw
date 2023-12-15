@@ -38,7 +38,7 @@ public class FuncionarioControler {
         return funcionarioService.save(funcionario);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         funcionarioService.deleteById(id);

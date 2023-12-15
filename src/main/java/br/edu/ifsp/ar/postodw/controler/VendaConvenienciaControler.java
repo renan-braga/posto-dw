@@ -37,7 +37,7 @@ public class VendaConvenienciaControler {
         return vendaConvenienciaService.save(vendaConveniencia);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         vendaConvenienciaService.deleteById(id);

@@ -35,7 +35,7 @@ public class AbastecimentoControler {
         return abastecimentoService.save(abastecimento);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         abastecimentoService.deleteById(id);

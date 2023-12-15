@@ -39,7 +39,7 @@ public class BombaControler {
         return bombaService.save(bomba);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         bombaService.deleteById(id);
