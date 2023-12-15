@@ -25,7 +25,6 @@ public class Funcionario {
     @Size(min = 3, max = 100, message = "O nome deve ter entre 3 e 100 caracteres")
     private String nome;
 
-    @CPF
     private String cpf;
 
     @Enumerated(EnumType.STRING)

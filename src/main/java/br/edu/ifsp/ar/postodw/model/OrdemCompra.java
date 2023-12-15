@@ -27,7 +27,7 @@ public class OrdemCompra {
     private LocalDate dataCompra;
 
     @NotNull
-    @DecimalMin(value = "0,0")
+    @DecimalMin(value = "0,0", inclusive = false)
     @Digits(integer = 10, fraction = 2, message = "O valor deve ter no máximo 10 dígitos e 2 casas decimais")
     private BigDecimal valorTotal;
 
