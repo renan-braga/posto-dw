@@ -3,9 +3,11 @@ package br.edu.ifsp.ar.postodw.service;
 import br.edu.ifsp.ar.postodw.model.Abastecimento;
 import br.edu.ifsp.ar.postodw.model.Bomba;
 import br.edu.ifsp.ar.postodw.model.OrdemCompra;
+import br.edu.ifsp.ar.postodw.model.Cliente;
 import br.edu.ifsp.ar.postodw.repository.BombaRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

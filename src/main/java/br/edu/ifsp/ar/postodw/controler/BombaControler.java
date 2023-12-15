@@ -1,6 +1,5 @@
 package br.edu.ifsp.ar.postodw.controler;
 
-import br.edu.ifsp.ar.postodw.model.Abastecimento;
 import br.edu.ifsp.ar.postodw.model.Bomba;
 import br.edu.ifsp.ar.postodw.model.OrdemCompra;
 import br.edu.ifsp.ar.postodw.service.AbastecimentoService;
@@ -8,6 +7,7 @@ import br.edu.ifsp.ar.postodw.service.BombaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
