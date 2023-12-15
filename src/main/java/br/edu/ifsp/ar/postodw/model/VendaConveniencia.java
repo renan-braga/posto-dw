@@ -39,4 +39,5 @@ public class VendaConveniencia {
 
     @Size(max = 500, message = "A descrição deve ter no máximo 500 caracteres")
     private String descricao;
-}
+
+    private Boolean ativo = true;}

@@ -30,4 +30,5 @@ public class Funcionario {
 
     @Enumerated(EnumType.STRING)
     private Cargo cargo;
-}
+
+    private Boolean ativo = true;}

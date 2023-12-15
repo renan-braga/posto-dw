@@ -49,4 +49,5 @@ public class OrdemCompra {
     public enum TipoOrdem {
         COMBUSTIVEL, CONVENIENCIA;
     }
-}
+
+    private Boolean ativo = true;}

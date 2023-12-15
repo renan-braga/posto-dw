@@ -4,6 +4,7 @@ import br.edu.ifsp.ar.postodw.model.Abastecimento;
 import br.edu.ifsp.ar.postodw.model.Bomba;
 import br.edu.ifsp.ar.postodw.model.OrdemCompra;
 import br.edu.ifsp.ar.postodw.repository.BombaRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +21,20 @@ public class BombaService {
     private OrdermCompraService ordermCompraService;
 
     public List<Bomba> list(){
-        return bombaRepository.findAll();
+        return bombaRepository.findByAtivoTrue();
     }
     public Optional<Bomba> findById(Long id){return bombaRepository.findById(id);}
     public Bomba save(Bomba bomba){return bombaRepository.save(bomba);}
     public void deleteById(Long id){bombaRepository.deleteById(id);}
 
     public Bomba update(Long id, Bomba bomba) {
-        return findById(id).map(bomba1 -> {
-            bomba1.setCapacidade(bomba.getCapacidade());
-            bomba1.setCombustivel(bomba.getCombustivel());
-            bomba1.setQuantidadeAtual(bomba.getQuantidadeAtual());
-            return save(bomba1);
-        }).orElseThrow(() -> new RuntimeException("Bomba não encontrada"));
+        if (bombaRepository.findById(id).isEmpty()) {
+            throw new RuntimeException("Bomba não encontrada");
+        } else {
+            Bomba bombaSaved = findById(id).get();
+            BeanUtils.copyProperties(bomba, bombaSaved, "id");
+            return bombaRepository.save(bombaSaved);
+        }
     }
 
     public Bomba recarregar(Long bombaId, Long ordemCompraId, int quantidadeLitros){

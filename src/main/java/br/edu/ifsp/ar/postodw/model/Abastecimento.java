@@ -47,4 +47,6 @@ public class Abastecimento {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
+
+    private Boolean ativo = true;
 }

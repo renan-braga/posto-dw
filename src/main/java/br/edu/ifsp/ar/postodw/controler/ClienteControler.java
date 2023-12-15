@@ -40,7 +40,7 @@ public class ClienteControler {
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
         Cliente updatedCliente = clienteService.findClienteById(id);
-        updatedCliente.setAtivo(true);
+        updatedCliente.setAtivo(false);
         clienteService.update(id, updatedCliente);
     }
     

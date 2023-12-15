@@ -4,6 +4,7 @@ import br.edu.ifsp.ar.postodw.model.Bomba;
 import br.edu.ifsp.ar.postodw.model.Funcionario;
 import br.edu.ifsp.ar.postodw.repository.BombaRepository;
 import br.edu.ifsp.ar.postodw.repository.FuncionarioRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,18 @@ public class FuncionarioService {
     private FuncionarioRepository funcionarioRepository;
 
     public List<Funcionario> list(){
-        return funcionarioRepository.findAll();
+        return funcionarioRepository.findByAtivoTrue();
     }
     public Optional<Funcionario> findById(Long id){return funcionarioRepository.findById(id);}
     public Funcionario save(Funcionario funcionario){return funcionarioRepository.save(funcionario);}
     public void deleteById(Long id){funcionarioRepository.deleteById(id);}
+
+    public Funcionario update(Long id, Funcionario funcionario) {
+        Funcionario funcionarioSaved = funcionarioRepository
+                .findById(id)
+                .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+
+        BeanUtils.copyProperties(funcionario, funcionarioSaved, "id");
+        return funcionarioRepository.save(funcionarioSaved);
+    }
 }

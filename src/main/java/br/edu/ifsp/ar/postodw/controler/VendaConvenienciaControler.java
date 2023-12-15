@@ -40,6 +40,9 @@ public class VendaConvenienciaControler {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id){
-        vendaConvenienciaService.deleteById(id);
+        vendaConvenienciaService.findById(id).map(vendaConveniencia -> {
+            vendaConveniencia.setAtivo(false);
+            return vendaConvenienciaService.update(id, vendaConveniencia);
+        });
     }
 }

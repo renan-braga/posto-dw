@@ -26,8 +26,7 @@ public class Cliente {
     @Pattern(regexp = "\\d{11}|\\d{14}")
     private String documento;
 
-	private Boolean ativo;
-
+	private Boolean ativo = true;
 	public Long getId() {
 		return id;
 	}
